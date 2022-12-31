@@ -240,7 +240,9 @@ export default function Home() {
                     src={joinImg}
                     alt="Chcesz zostać wolontariuszem"
                     fill
-                    sizes="100%"
+                    sizes="(max-width: 768px) 100vw,
+                          (max-width: 1200px) 50vw,
+                          33vw"
                   />
                 </div>
                 <p className="join__text">
