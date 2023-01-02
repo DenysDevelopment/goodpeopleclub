@@ -16,12 +16,14 @@ import joinImg from "/src/img/join.jpg";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const scene = React.useRef(null);
+  const scene = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const parallaxInstance = new Parallax(scene.current, {});
+    if (scene.current) {
+      const parallaxInstance = new Parallax(scene?.current);
 
-    return () => parallaxInstance.disable();
+      return () => parallaxInstance.disable();
+    }
   }, []);
 
   return (
@@ -73,7 +75,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="intro__img">
-                <Image src={introImg} alt="Intro img" fill />
+                <Image src={introImg} alt="Intro img" fill sizes="100%" />
               </div>
             </div>
           </div>

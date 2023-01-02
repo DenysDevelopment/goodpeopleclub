@@ -1,5 +1,6 @@
 import React from "react";
 
-export const profile = () => {
-	return <div>profile</div>;
+const profile = (): JSX.Element => {
+  return <div>profile</div>;
 };
+export default profile;

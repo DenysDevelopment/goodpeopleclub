@@ -4,7 +4,7 @@ import { Header } from "./Header";
 
 interface LayoutPropsType {
   children: React.ReactNode;
-  className: string;
+  className?: string;
 }
 
 export const Layout = ({ children, className }: LayoutPropsType) => {
