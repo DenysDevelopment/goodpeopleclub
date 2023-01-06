@@ -105,26 +105,24 @@
   .form {
     margin: 0 auto;
     &__row {
-      &:first-child {
-        display: grid;
-        gap: 7px;
-        grid-template-columns: repeat(2, 1fr);
-        input {
-          background: transparent;
-          box-shadow: none;
-          width: 15px;
-          height: 15px;
-        }
-        label {
-          font-size: rem(13);
-        }
-        div {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 10px;
-          box-shadow: rgb(0 0 0 / 24%) 1px 1px 6px;
-        }
+      display: grid;
+      gap: 7px;
+      grid-template-columns: repeat(2, 1fr);
+      input {
+        background: transparent;
+        box-shadow: none;
+        width: 15px;
+        height: 15px;
+      }
+      label {
+        font-size: rem(13);
+      }
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        box-shadow: rgb(0 0 0 / 24%) 1px 1px 6px;
       }
     }
   }

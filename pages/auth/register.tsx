@@ -1,7 +1,8 @@
 import Head from "next/head";
 import Image from "next/image";
 import React from "react";
-import { Layout } from "../src/components/layout";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Layout } from "../../src/components/layout";
 
 import registerImg from "/src/img/register-bg.jpg";
 
@@ -12,29 +13,22 @@ interface FormData {
   passwordConfirm: string;
 }
 
+interface IFormInput {
+  name: string;
+  email: string;
+  password: string;
+}
+
 const Register: React.FC = (): JSX.Element => {
-  const [formData, setFormData] = React.useState<FormData>({
-    username: "",
-    email: "",
-    password: "",
-    passwordConfirm: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data: any) => {};
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // function register is here
-  };
-
-  React.useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+  console.log(watch("example"));
 
   return (
     <>
@@ -65,45 +59,28 @@ const Register: React.FC = (): JSX.Element => {
           </div>
           <h2 className="register__sub-title">Witam!</h2>
           <form
-            action="/api/aut/register"
-            method="post"
             className="register__form form"
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
           >
             <div className="form__row">
               <input
                 className="form__input"
-                type="text"
-                name="username"
                 placeholder="Imię i nazwisko"
-                onChange={handleChange}
+                {...register("email", { required: true })}
               />
             </div>
             <div className="form__row">
               <input
                 className="form__input"
-                type="email"
-                name="email"
                 placeholder="E-mail"
-                onChange={handleChange}
+                {...register("email", { required: true })}
               />
             </div>
             <div className="form__row">
               <input
                 className="form__input"
-                type="password"
-                name="password"
                 placeholder="Password"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="form__row">
-              <input
-                className="form__input"
-                type="password"
-                name="passwordConfirm"
-                placeholder="Password"
-                onChange={handleChange}
+                {...register("email", { required: true })}
               />
             </div>
             <button className="form__btn">Wysłać</button>

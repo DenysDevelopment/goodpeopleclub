@@ -779,6 +779,7 @@
     position: relative;
     justify-self: end;
     height: 257px;
+    width: 100%;
     img {
       object-fit: cover;
     }
@@ -970,6 +971,9 @@
 //========================================================================================================================================================
 
 .profile {
+  &__change-img-wrap {
+    position: relative;
+  }
   &__upload-check {
     position: absolute;
     top: 0;

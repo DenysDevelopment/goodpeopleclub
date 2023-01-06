@@ -1,17 +1,33 @@
+import { getCsrfToken } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import React from "react";
-import { Footer } from "../src/components/Footer";
-import { Header } from "../src/components/Header";
-import { Layout } from "../src/components/layout";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+import { Layout } from "../../src/components/layout";
 
 import loginImg from "/src/img/login-bg.jpg";
 
-const login = () => {
+type Inputs = {
+  email: string;
+  password: string;
+};
+
+const Signin = ({ csrfToken }: any): JSX.Element => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
+  };
+
   return (
     <>
       <Head>
-        <title>dwf</title>
+        <title>Login</title>
       </Head>
       <Layout className="register">
         <div className="register__img">
@@ -38,30 +54,28 @@ const login = () => {
 
           <h2 className="register__sub-title">Witam!</h2>
           <form
-            action="../vendor/login.php"
             method="post"
+            action="/api/auth/callback/credentials"
             className="register__form form"
+            // onSubmit={handleSubmit(onSubmit)}
           >
+            <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
             <div className="form__row">
               <input
                 className="form__input"
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Password"
-                onChange={() => 1}
+                placeholder="E-mail"
+                name="email"
+                type="email"
+                // {...register("email", { required: true })}
               />
             </div>
             <div className="form__row">
               <input
                 className="form__input"
-                type="email"
-                id="email"
-                aria-labelledby="name"
-                value=""
-                name="email"
-                placeholder="E-mail"
-                onChange={() => 1}
+                type="password"
+                id="password"
+                placeholder="Password"
+                name="password"
               />
             </div>
             <button className="form__btn">Wysłać</button>
@@ -71,4 +85,18 @@ const login = () => {
     </>
   );
 };
-export default login;
+export default Signin;
+
+export async function getServerSideProps(context: any) {
+  return {
+    props: {
+      csrfToken: await getCsrfToken(context),
+    },
+  };
+}
+
+Signin.auth = {
+  role: "user",
+  loading: <>Loading</>,
+  unauthorized: "/auth/signin", // redirect to this url
+};
